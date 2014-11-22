@@ -35,10 +35,9 @@ combustion = as.vector(SCC[grep("combustion",SCC$SCC.Level.One,ignore.case=T) & 
 NEI_comb = NEI[NEI$SCC %in% combustion,]
 totals_comb = aggregate(Emissions ~ year, NEI_comb, sum)
 png("plot4.png", width=480, height=480)
-qplot(year, Emissions, data=totals_comb) +
+qplot(year, Emissions, data=totals_comb) + geom_point(size=4) + 
   labs(title="PM2.5 Emission from coal combustion-related sources ",
-       y="Total PM2.5 emission each year", x="Year") + 
-  geom_point(size=4)
+       y="Total PM2.5 emission each year", x="Year")
 
 dev.off()
 
@@ -47,10 +46,9 @@ vehicles = as.vector(SCC[grep("vehicle",SCC$SCC.Level.Two,ignore.case=T),1])
 NEI_vehi = NEI[NEI$SCC %in% vehicles,]
 totals_vehi = aggregate(Emissions ~ year, data = subset(NEI_vehi, fips == "24510"), sum)
 png("plot5.png", width=480, height=480)
-qplot(year, Emissions, data=totals_vehi) +
+qplot(year, Emissions, data=totals_vehi) + geom_point(size=4) + 
   labs(title="PM2.5 Emission from vehicles in Baltimore ",
-       y="Total PM2.5 emission each year", x="Year") +
-  geom_point(size=4)
+       y="Total PM2.5 emission each year", x="Year") 
 
 dev.off()
 
