@@ -52,3 +52,15 @@ qplot(year, Emissions, data=totals_vehi) + geom_point(size=4) +
 
 dev.off()
 
+
+# Plot 6
+vehicles = as.vector(SCC[grep("vehicle",SCC$SCC.Level.Two,ignore.case=T),1])
+NEI_vehi = NEI[NEI$SCC %in% vehicles,]
+totals_vehi = aggregate(Emissions ~ year + fips, data = subset(NEI_vehi, fips == "24510" | fips == "06037"), sum)
+png("plot6.png", width=480, height=480)
+
+qplot(year, Emissions, data=totals_vehi, color=fips, geom = c("line","point"), method="loess") + geom_point(size=4) + 
+  labs(title="PM2.5 Emission from vehicles in Baltimore and LA County ",
+       y="Total PM2.5 emission each year", x="Year") 
+
+dev.off()
